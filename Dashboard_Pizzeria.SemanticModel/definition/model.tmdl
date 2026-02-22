@@ -1,0 +1,28 @@
+model Model
+	culture: es-MX
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-CR
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Detalle_Ventas","Detalle_Fecha","Detalle_Precio","Detalle_Sucursal","Detalle_Tipo","Metas"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Detalle_Ventas
+ref table DateTableTemplate_471541f5-dd91-4c2b-a2dd-0cc910e48cc1
+ref table Detalle_Fecha
+ref table LocalDateTable_8549b495-b6e0-43b2-9cf2-3365349b8873
+ref table Detalle_Precio
+ref table Detalle_Sucursal
+ref table Detalle_Tipo
+ref table Calendario
+ref table LocalDateTable_8aa903ef-d5dc-47c2-863f-b2839681b6dd
+ref table Metas
+
+ref cultureInfo es-MX
+

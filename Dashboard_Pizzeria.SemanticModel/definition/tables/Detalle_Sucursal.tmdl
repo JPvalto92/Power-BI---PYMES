@@ -1,0 +1,41 @@
+table Detalle_Sucursal
+	lineageTag: 9c7ea038-611e-4188-8510-1bb57cadac8f
+
+	column ID_SUCURSAL
+		dataType: string
+		lineageTag: 620fe173-5d83-4d06-bfa1-1bfaf6f7edfc
+		summarizeBy: none
+		sourceColumn: ID_SUCURSAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column ESTADO
+		dataType: string
+		lineageTag: 2be89bcb-4c95-4978-a9f6-a8ca125e7633
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: ESTADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SUCURSAL
+		dataType: string
+		lineageTag: 01f1e372-dc29-4edb-9bea-656b0e900fa9
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: SUCURSAL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Detalle_Sucursal = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\jpval\Desktop\UNIVERSIDAD ESTATAL A DISTACIA\Licenciatura\1er Cuatri 2024\Analisis de bases de Datos\Power BI\Venta_Pizza.xlsx"), null, true),
+				    Detalle_Sucursal_Table = Origen{[Item="Detalle_Sucursal",Kind="Table"]}[Data],
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Detalle_Sucursal_Table,{{"ID_SUCURSAL", type text}, {"ESTADO", type text}, {"SUCURSAL", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

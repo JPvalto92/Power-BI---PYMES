@@ -1,0 +1,51 @@
+table Detalle_Fecha
+	lineageTag: 6f244a49-6427-40dd-ae47-50cb2ec6529b
+
+	column Id_Orden
+		dataType: int64
+		formatString: 0
+		lineageTag: 44bf5cd7-eab2-4a46-86f5-cddf07dd1e86
+		summarizeBy: none
+		sourceColumn: Id_Orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6702f1b0-9264-4c27-ab0e-2e3df2e586f7
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Hora
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 545a0092-2809-4428-a8ca-30fbbcde14e6
+		summarizeBy: none
+		sourceColumn: Hora
+
+		variation Variación
+			isDefault
+			relationship: 9cdfc461-2fdc-420c-87a2-fe734c4f573f
+			defaultHierarchy: LocalDateTable_8549b495-b6e0-43b2-9cf2-3365349b8873.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Detalle_Fecha = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\jpval\Desktop\UNIVERSIDAD ESTATAL A DISTACIA\Licenciatura\1er Cuatri 2024\Analisis de bases de Datos\Power BI\Venta_Pizza.xlsx"), null, true),
+				    Detalle_Fecha_Table = Origen{[Item="Detalle_Fecha",Kind="Table"]}[Data],
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Detalle_Fecha_Table,{{"Id_Orden", Int64.Type}, {"Fecha", type date}, {"Hora", type datetime}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

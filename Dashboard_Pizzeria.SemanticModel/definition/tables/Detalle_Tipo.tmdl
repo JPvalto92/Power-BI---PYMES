@@ -1,0 +1,48 @@
+table Detalle_Tipo
+	lineageTag: f1993bac-bd2b-4e32-b2be-75718e0ad038
+
+	column Id_Tipo_Pizza
+		dataType: string
+		lineageTag: 9c29adb8-afb4-4bd4-af2c-dd4aee74e7b4
+		summarizeBy: none
+		sourceColumn: Id_Tipo_Pizza
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre Pizza'
+		dataType: string
+		lineageTag: c269980e-76b1-4e39-9f25-1d5a812fd71b
+		summarizeBy: none
+		sourceColumn: Nombre Pizza
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoria
+		dataType: string
+		lineageTag: cccdfa49-8c3e-429d-af14-12f728323eee
+		summarizeBy: none
+		sourceColumn: Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ingredientes
+		dataType: string
+		lineageTag: 761ef277-aa35-4cb3-a686-d5bf18a52a40
+		summarizeBy: none
+		sourceColumn: Ingredientes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Detalle_Tipo = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\jpval\Desktop\UNIVERSIDAD ESTATAL A DISTACIA\Licenciatura\1er Cuatri 2024\Analisis de bases de Datos\Power BI\Venta_Pizza.xlsx"), null, true),
+				    Detalle_Tipo_Table = Origen{[Item="Detalle_Tipo",Kind="Table"]}[Data],
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Detalle_Tipo_Table,{{"Id_Tipo_Pizza", type text}, {"Nombre", type text}, {"Categoria", type text}, {"Ingredientes", type text}}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado",{{"Nombre", "Nombre Pizza"}})
+				in
+				    #"Columnas con nombre cambiado"
+
+	annotation PBI_ResultType = Table
+

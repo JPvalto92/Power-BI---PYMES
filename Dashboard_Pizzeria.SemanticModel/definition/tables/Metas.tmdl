@@ -1,0 +1,44 @@
+table Metas
+	lineageTag: 0a7996f1-60c8-4513-982e-fa25a97c1bb8
+
+	measure Cumplimiento = DIVIDE([Ventas Totales],SUM(Metas[Meta]))
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: c5d789e5-18a2-4e85-a655-ec3e7762687c
+
+	measure 'Suma de metas' = SUM(Metas[Meta])
+		formatString: 0
+		lineageTag: 834ac23b-3b1d-4a48-b541-431ebb9587e0
+
+	measure 'Metas mensuales' = SUMMARIZE(Metas,Metas[Meta])
+		formatString: 0
+		lineageTag: 18c60ed8-e8a0-4380-8512-7192148cdbb1
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 6e24d8aa-4c81-4149-885f-238c22170ab7
+		summarizeBy: none
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Meta
+		dataType: int64
+		formatString: 0
+		lineageTag: 00de57ee-ecfe-4965-aba3-296c8730933c
+		summarizeBy: none
+		sourceColumn: Meta
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Metas = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlTSUTI0AAOlWJ1oJSM0vjEa3wSNb4rGN0Pjm6PxLdD4lmh8QwN0AXQXGqI4MRYA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Mes = _t, Meta = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Mes", Int64.Type}, {"Meta", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

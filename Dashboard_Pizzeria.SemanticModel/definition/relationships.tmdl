@@ -1,0 +1,39 @@
+relationship 9cdfc461-2fdc-420c-87a2-fe734c4f573f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Detalle_Fecha.Hora
+	toColumn: LocalDateTable_8549b495-b6e0-43b2-9cf2-3365349b8873.Date
+
+relationship AutoDetected_f3d32eb3-7b1b-4782-8af9-b660fa32e7ee
+	fromColumn: Detalle_Ventas.Id_Orden
+	toColumn: Detalle_Fecha.Id_Orden
+
+relationship AutoDetected_6cc3e48a-0fe8-4918-ae28-ac96d285bf23
+	fromColumn: Detalle_Ventas.ID_Pizza
+	toColumn: Detalle_Precio.ID_Pizza
+
+relationship AutoDetected_cc06099c-7f59-4a3f-a7dc-25607b5581e7
+	fromColumn: Detalle_Ventas.ID_SUCURSAL
+	toColumn: Detalle_Sucursal.ID_SUCURSAL
+
+relationship AutoDetected_a380e3c0-e8e9-4a56-a044-6d4ac396d163
+	fromColumn: Detalle_Precio.Id_Tipo_Pizza
+	toColumn: Detalle_Tipo.Id_Tipo_Pizza
+
+relationship 4db0eed9-0602-46ca-b095-808e9a55d492
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario.Fecha
+	toColumn: LocalDateTable_8aa903ef-d5dc-47c2-863f-b2839681b6dd.Date
+
+relationship ab6e6237-6e6a-4e86-9e03-30ce500474b4
+	isActive: false
+	fromColumn: Detalle_Ventas.ID_Pizza
+	toColumn: Calendario.Fecha
+
+relationship 81d120e7-346c-45ab-9a54-fe5d0fab5541
+	fromColumn: Calendario.Mes
+	toColumn: Metas.Mes
+
+relationship 53939356-485c-4083-81e3-06a6beff83ee
+	fromColumn: Detalle_Fecha.Fecha
+	toColumn: Calendario.Fecha
+

@@ -1,0 +1,50 @@
+table Detalle_Precio
+	lineageTag: 49d5c90c-6947-41ec-9730-bb0eef8d617d
+
+	column ID_Pizza
+		dataType: string
+		lineageTag: 703dfaf4-42d3-4007-bfb4-7081144e2cd4
+		summarizeBy: none
+		sourceColumn: ID_Pizza
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id_Tipo_Pizza
+		dataType: string
+		lineageTag: 06ea7c24-0c25-438c-beb9-10c05f46f15a
+		summarizeBy: none
+		sourceColumn: Id_Tipo_Pizza
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tamaño
+		dataType: string
+		lineageTag: 8ac1104e-c4cd-44d4-92a8-4d74a68ab0f2
+		summarizeBy: none
+		sourceColumn: Tamaño
+
+		annotation SummarizationSetBy = Automatic
+
+	column Precio
+		dataType: double
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: b86b9d76-01a6-4cbc-b0df-7700b688ddcb
+		summarizeBy: sum
+		sourceColumn: Precio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-US"}
+
+	partition Detalle_Precio = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\jpval\Desktop\UNIVERSIDAD ESTATAL A DISTACIA\Licenciatura\1er Cuatri 2024\Analisis de bases de Datos\Power BI\Venta_Pizza.xlsx"), null, true),
+				    Detalle_Precio_Table = Origen{[Item="Detalle_Precio",Kind="Table"]}[Data],
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Detalle_Precio_Table,{{"ID_Pizza", type text}, {"Id_Tipo_Pizza", type text}, {"Tamaño", type text}, {"Precio", type number}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

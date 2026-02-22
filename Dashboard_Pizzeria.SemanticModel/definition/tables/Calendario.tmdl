@@ -1,0 +1,50 @@
+table Calendario
+	lineageTag: 8c4bdbb8-d04f-4f98-9d96-4cebb24021af
+
+	column Fecha
+		formatString: General Date
+		lineageTag: b9e49db3-a988-4c76-a2d9-49eba5480f81
+		summarizeBy: none
+		sourceColumn: [Date]
+
+		variation Variación
+			isDefault
+			relationship: 4db0eed9-0602-46ca-b095-808e9a55d492
+			defaultHierarchy: LocalDateTable_8aa903ef-d5dc-47c2-863f-b2839681b6dd.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Año = Year(Calendario[Fecha])
+		formatString: 0
+		lineageTag: be3ea0ed-841d-44fc-96a5-2f03c1abae62
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes = MONTH(Calendario[Fecha])
+		formatString: 0
+		lineageTag: 62d689d9-9d6a-417e-a241-26dd464a9931
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column 'Nombre mes' = FORMAT(Calendario[Fecha],"MMMM")
+		lineageTag: e78f522f-32a9-4df3-95c7-d317fc848e7f
+		summarizeBy: none
+		sortByColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mes 3M' = FORMAT(Calendario[Fecha],"MMM")
+		lineageTag: b8dfa4b0-0481-4d9b-a4dd-b8ee9e65b170
+		summarizeBy: none
+		sortByColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendario = calculated
+		mode: import
+		source = calendar(MIN(Detalle_Fecha[Fecha]),(MAX(Detalle_Fecha[Fecha])))
+
+	annotation PBI_Id = ba7764f3fd1f466d94b2d583e6a0efe5
+

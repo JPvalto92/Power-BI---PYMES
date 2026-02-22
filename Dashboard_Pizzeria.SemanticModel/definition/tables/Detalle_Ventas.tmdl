@@ -1,0 +1,120 @@
+table Detalle_Ventas
+	lineageTag: ba4610ca-4686-4076-b3e2-1f6b99605aee
+
+	measure 'Ventas Totales' = SUM(Detalle_Ventas[Monto Venta])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: bc5de325-fa70-405b-a973-446208b0a23e
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Cantidad Total' = SUM(Detalle_Ventas[Cantidad])
+		formatString: 0
+		lineageTag: c0549359-79c9-4242-9303-6003871e726c
+
+	measure Promedio_ventas = AVERAGE(Detalle_Ventas[Monto Venta])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 27307931-6278-4878-ad30-6921a731672e
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Máximo ventas' = MAX(Detalle_Ventas[Monto Venta])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 529911e5-b006-4fa8-b5fe-c0152395d666
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Mediana Ventas' = MEDIAN(Detalle_Ventas[Monto Venta])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: f3429ec9-8a1b-417a-a824-7b3dbb516099
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Ventas mes anterior' = CALCULATE(Detalle_Ventas[Ventas Totales],PREVIOUSMONTH(Calendario[Fecha].[Date]))
+		formatString: 0
+		lineageTag: 8dc62288-103f-4d69-a31e-e55a93e3d39d
+
+	measure 'Diferencia mensual' = Detalle_Ventas[Ventas Totales]-Detalle_Ventas[Ventas mes anterior]
+		lineageTag: cc7c30bf-d44f-4235-9966-daea65a40e8b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Crecimiento' = DIVIDE([Diferencia mensual],Detalle_Ventas[Ventas mes anterior])
+		lineageTag: 2cc48ff0-554f-4f84-8a73-a1d1a51cf2a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Id_Orden
+		dataType: int64
+		formatString: 0
+		lineageTag: d6251e1c-abdc-45d2-b4f2-4edbd6ddcbcf
+		summarizeBy: none
+		sourceColumn: Id_Orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Detalle_Orden
+		dataType: int64
+		formatString: 0
+		lineageTag: 076779a1-78a6-44b1-bd5b-85857ef9d4f8
+		summarizeBy: sum
+		sourceColumn: ID_Detalle_Orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Pizza
+		dataType: string
+		lineageTag: 4ad523f0-1661-4f53-9052-219360d44752
+		summarizeBy: none
+		sourceColumn: ID_Pizza
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tamaño
+		dataType: string
+		lineageTag: 9fccc117-14c8-4f6b-8388-408f00a91633
+		summarizeBy: none
+		sourceColumn: Tamaño
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cantidad
+		dataType: int64
+		formatString: 0
+		lineageTag: ca071737-887c-4ae9-aa81-97692f13475b
+		summarizeBy: sum
+		sourceColumn: Cantidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_SUCURSAL
+		dataType: string
+		lineageTag: 970c1c94-d0bd-4500-817e-86f40ccfba76
+		summarizeBy: none
+		sourceColumn: ID_SUCURSAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Monto Venta' = Detalle_Ventas[Cantidad]*RELATED(Detalle_Precio[Precio])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: cf3708da-77a3-4ef0-8063-f23024000414
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	partition Detalle_Ventas = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\jpval\Desktop\UNIVERSIDAD ESTATAL A DISTACIA\Licenciatura\1er Cuatri 2024\Analisis de bases de Datos\Power BI\Venta_Pizza.xlsx"), null, true),
+				    Detalle_Ventas_Table = Origen{[Item="Detalle_Ventas",Kind="Table"]}[Data],
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Detalle_Ventas_Table,{{"Id_Orden", Int64.Type}, {"ID_Detalle_Orden", Int64.Type}, {"ID_Pizza", type text}, {"Tamaño", type text}, {"Cantidad", Int64.Type}, {"ID_SUCURSAL", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

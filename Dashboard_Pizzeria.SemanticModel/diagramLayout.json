@@ -1,0 +1,113 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 75
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 135.39237184378976,
+            "y": 0
+          },
+          "nodeIndex": "Detalle_Tipo",
+          "nodeLineageTag": "f1993bac-bd2b-4e32-b2be-75718e0ad038",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 490.76284963775896,
+            "y": 280
+          },
+          "nodeIndex": "Detalle_Ventas",
+          "nodeLineageTag": "ba4610ca-4686-4076-b3e2-1f6b99605aee",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 763.42179113292946,
+            "y": 15.714285714285708
+          },
+          "nodeIndex": "Detalle_Sucursal",
+          "nodeLineageTag": "9c7ea038-611e-4188-8510-1bb57cadac8f",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 22.142857142857153,
+            "y": 539.15230308030857
+          },
+          "nodeIndex": "Detalle_Precio",
+          "nodeLineageTag": "49d5c90c-6947-41ec-9730-bb0eef8d617d",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 787.98664860316819,
+            "y": 675.51276313879862
+          },
+          "nodeIndex": "Detalle_Fecha",
+          "nodeLineageTag": "6f244a49-6427-40dd-ae47-50cb2ec6529b",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1167.2495147009322,
+            "y": 97.327810140827836
+          },
+          "nodeIndex": "Calendario",
+          "nodeLineageTag": "8c4bdbb8-d04f-4f98-9d96-4cebb24021af",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1424.7733242247418,
+            "y": 449.75638156939931
+          },
+          "nodeIndex": "Metas",
+          "nodeLineageTag": "0a7996f1-60c8-4513-982e-fa25a97c1bb8",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 6
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 60,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}
