@@ -1,6 +1,6 @@
 # Power-BI---Pizza´s
-update Analisis de Pizzerias en U.S.A 
-Documentos CVS transformados a Power BI
+# Analisis de Pizzerias en U.S.A 
+# Documentos CVS transformados a Power BI
 
 
 
